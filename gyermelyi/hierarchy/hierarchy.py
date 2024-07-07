@@ -2,7 +2,7 @@ from collections import defaultdict
 import logging
 import pandas as pd
 from bennet.config import Config
-from .hierarchydb import HierarchyDBOracle
+from .hierarchydbfactory import HierarchyDBFactory
 
 logger = logging.getLogger(__name__)
 
@@ -63,11 +63,11 @@ class Hierarchy:
                 self.source = source
 
             if config_file is not None:
-                try:
-                    self.metadata = Config(config_file)
-                    self.hierarchydb = HierarchyDBOracle(**self.metadata.to_dict('database'))  # FIXME: NoneType as parameter
-                except Exception:
-                    raise TypeError("Failed to create the hierarchydb attribute")
+                self.metadata = Config(config_file)
+                db_type = self.metadata.get('database', 'type')
+                db_config = self.metadata.to_dict('database')
+
+                self.hierarchydb = HierarchyDBFactory.create(db_type, **db_config)
 
             if self.source is None and self.hierarchydb is not None:
                 self.read_source_from_db()
