@@ -1,0 +1,4 @@
+setuptools~=70.0.0
+pandas~=2.2.2
+oracledb~=2.2.1
+SQLAlchemy~=2.0.31
