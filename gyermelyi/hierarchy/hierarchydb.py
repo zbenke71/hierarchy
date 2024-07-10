@@ -100,7 +100,7 @@ class HierarchyDBOracle(HierarchyDB):
             raise ValueError("All parameters 'schema' and 'table' must be provided.")
 
         try:
-            df.to_sql(table, self.engine, schema=schema, if_exists=typing.cast(typing.Literal, kwargs.get("if_exists", "fail")), index=False)
+            df.to_sql(table, self.engine, schema=schema, if_exists=typing.cast(typing.Literal["append", "fail", "replace"], kwargs.get("if_exists", "fail")), index=False)
         except Exception as e:
             logger.error(f"Failed to write data to database: {e}")
             raise
