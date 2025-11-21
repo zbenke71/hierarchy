@@ -17,11 +17,5 @@ setup(
         'Operating System :: OS Independent',
     ],
     python_requires='>=3.6',
-    install_requires=[
-        'bennet-observer @ git+https://github.com/gyermelyi/bennet-observer.git@0.1',
-        'bennet-config @ git+https://github.com/gyermelyi/bennet-config.git@0.1',
-        'oracledb>=3.4.1',
-        'pandas>=2.3.3',
-        'sqlalchemy>=2.0.44',
-    ],
+    install_requires=[open('requirements.txt').read().splitlines()],
 )
