@@ -119,6 +119,9 @@ class Hierarchy:
             self.hierarchy.add(tuple(path))
         else:
             for child in self.parent_map[node]:
+                if child in path:
+                    logger.warning(f"Cycle detected: node {child} cannot be its own ancestor. Current path: {path + [child]}. Skipping.")
+                    continue
                 self.hierarchy.add(tuple(path))
                 self._build_path(child, path.copy())
 
